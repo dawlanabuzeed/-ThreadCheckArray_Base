@@ -1,10 +1,9 @@
 import java.util.ArrayList;
+
 /**
  * Checks whether a target sum can be found using array elements.
- * Uses an ArrayList of Integer values and multiple threads.
+ * Uses an {@code ArrayList<Integer>} and multiple threads.
  */
-import java.util.ArrayList;
-
 public class ThreadCheckArray implements Runnable {
     private boolean flag;
     private boolean[] winArray;
@@ -19,7 +18,7 @@ public class ThreadCheckArray implements Runnable {
     public ThreadCheckArray(SharedData sd) {
         this.sd = sd;
         synchronized (sd) {
-            array = new ArrayList<>(Arrays.asList(sd.getArray()));
+            array = sd.getArray();
             b = sd.getB();
         }
         winArray = new boolean[array.size()];
