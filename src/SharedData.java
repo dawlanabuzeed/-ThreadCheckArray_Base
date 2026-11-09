@@ -12,6 +12,7 @@ public class SharedData {
     /**
      * Constructor for SharedData class.
      *
+     * hi my name is dawlan
      * @param array the initial ArrayList of Integers
      * @param b       the constant integer value
      */
