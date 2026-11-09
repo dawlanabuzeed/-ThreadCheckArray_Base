@@ -1,4 +1,9 @@
 import java.util.ArrayList;
+/**
+ * Checks whether a target sum can be found using array elements.
+ * Uses an ArrayList of Integer values and multiple threads.
+ */
+import java.util.ArrayList;
 
 public class ThreadCheckArray implements Runnable {
     private boolean flag;
@@ -6,6 +11,11 @@ public class ThreadCheckArray implements Runnable {
     SharedData sd;
     ArrayList<Integer> array;
     int b;
+    /**
+     * Initializes the thread checker with shared data.
+     *
+     * @param sd the shared data object
+     */
     public ThreadCheckArray(SharedData sd) {
         this.sd = sd;
         synchronized (sd) {
@@ -14,7 +24,12 @@ public class ThreadCheckArray implements Runnable {
         }
         winArray = new boolean[array.size()];
     }
-
+    /**
+     * Recursively checks for a subset matching the target sum.
+     *
+     * @param n number of elements to examine
+     * @param b remaining target sum
+     */
     void rec(int n, int b) {
         synchronized (sd) {
             if (sd.getFlag()) return;
@@ -35,13 +50,17 @@ public class ThreadCheckArray implements Runnable {
         }
         rec(n-1, b);
     }
-
+    /**
+     * Executes the subset checking process in the current thread.
+     */
+    @Override
     public void run() {
         if (array.size() != 1)
             if (Thread.currentThread().getName().equals("thread1"))
-                rec(array.size()-1, b - array.get(array.size() - 1));
+                rec(array.size() - 1, b - array.get(array.size() - 1));
             else
-                rec(array.size()-1, b);
+                rec(array.size() - 1, b);
+
         if (array.size() == 1)
             if (b == array.get(0) && !flag) {
                 winArray[0] = true;
